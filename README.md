@@ -144,47 +144,7 @@
 ![SQLite](https://img.shields.io/badge/SQLite-Memory-ff6d00?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=0a0f1e)
 ![Status](https://img.shields.io/badge/Status-Active-00e676?style=for-the-badge&labelColor=0a0f1e)
 
-<br/>
-
-<!-- Animated role-feature highlight strip -->
-<svg xmlns="http://www.w3.org/2000/svg" width="680" height="54" viewBox="0 0 680 54">
-  <defs>
-    <linearGradient id="hStrip" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="#4FC3F7" stop-opacity="0"/>
-      <stop offset="15%"  stop-color="#4FC3F7" stop-opacity="0.5"/>
-      <stop offset="50%"  stop-color="#7C4DFF" stop-opacity="0.5"/>
-      <stop offset="85%"  stop-color="#00e676" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#00e676" stop-opacity="0"/>
-    </linearGradient>
-    <linearGradient id="scan" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%"   stop-color="#fff" stop-opacity="0"/>
-      <stop offset="50%"  stop-color="#fff" stop-opacity="0.12"/>
-      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <!-- Background strip -->
-  <rect x="0" y="18" width="680" height="18" rx="9" fill="rgba(255,255,255,0.04)" stroke="none"/>
-  <!-- Gradient fill -->
-  <rect x="0" y="18" width="680" height="18" rx="9" fill="url(#hStrip)" opacity="0.7"/>
-  <!-- Scan line animation -->
-  <rect x="-160" y="18" width="160" height="18" rx="9" fill="url(#scan)">
-    <animateTransform attributeName="transform" type="translate"
-      from="-160 0" to="840 0" dur="3s" repeatCount="indefinite"/>
-  </rect>
-  <!-- Role labels -->
-  <text x="113" y="31" font-family="'Courier New',monospace" font-size="9.5" fill="#4FC3F7"
-    text-anchor="middle" letter-spacing="2" font-weight="bold">🗣️ VOICE LOOP</text>
-  <text x="340" y="31" font-family="'Courier New',monospace" font-size="9.5" fill="#c4b5fd"
-    text-anchor="middle" letter-spacing="2" font-weight="bold">🧠 GROQ LLM</text>
-  <text x="567" y="31" font-family="'Courier New',monospace" font-size="9.5" fill="#00e676"
-    text-anchor="middle" letter-spacing="2" font-weight="bold">🛠️ CLAUDE CODE</text>
-  <!-- Divider ticks -->
-  <line x1="226" y1="14" x2="226" y2="40" stroke="#fff" stroke-width="0.7" stroke-opacity="0.25"/>
-  <line x1="453" y1="14" x2="453" y2="40" stroke="#fff" stroke-width="0.7" stroke-opacity="0.25"/>
-  <!-- Top & bottom accent lines -->
-  <rect x="0" y="17" width="680" height="1" fill="url(#hStrip)" opacity="0.5"/>
-  <rect x="0" y="36" width="680" height="1" fill="url(#hStrip)" opacity="0.5"/>
-</svg>
+**🗣️ VOICE LOOP &nbsp;•&nbsp; 🧠 GROQ LLM &nbsp;•&nbsp; 🛠️ CLAUDE CODE**
 
 <br/>
 
@@ -233,50 +193,9 @@
 </svg>
 </div>
 
-<!-- Stats counter strip -->
-<div align="center">
-<svg xmlns="http://www.w3.org/2000/svg" width="700" height="80" viewBox="0 0 700 80">
-  <defs>
-    <linearGradient id="cardG1" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#4FC3F7" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#4FC3F7" stop-opacity="0.04"/>
-    </linearGradient>
-    <linearGradient id="cardG2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#7C4DFF" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#7C4DFF" stop-opacity="0.04"/>
-    </linearGradient>
-    <linearGradient id="cardG3" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#00e676" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#00e676" stop-opacity="0.04"/>
-    </linearGradient>
-    <linearGradient id="cardG4" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ff6d00" stop-opacity="0.18"/>
-      <stop offset="100%" stop-color="#ff6d00" stop-opacity="0.04"/>
-    </linearGradient>
-  </defs>
-  <!-- Card 1: AI Models -->
-  <rect x="10"  y="8" width="155" height="62" rx="10" fill="url(#cardG1)" stroke="#4FC3F7" stroke-width="0.8" stroke-opacity="0.5"/>
-  <text x="87"  y="34" font-family="Orbitron,monospace" font-size="22" fill="#4FC3F7" text-anchor="middle" font-weight="bold">3</text>
-  <text x="87"  y="54" font-family="monospace" font-size="9"  fill="#4FC3F7" text-anchor="middle" opacity="0.8" letter-spacing="1">AI MODELS</text>
-  <!-- Card 2: System Actions -->
-  <rect x="185" y="8" width="155" height="62" rx="10" fill="url(#cardG2)" stroke="#7C4DFF" stroke-width="0.8" stroke-opacity="0.5"/>
-  <text x="262" y="34" font-family="Orbitron,monospace" font-size="22" fill="#c4b5fd" text-anchor="middle" font-weight="bold">10+</text>
-  <text x="262" y="54" font-family="monospace" font-size="9"  fill="#c4b5fd" text-anchor="middle" opacity="0.8" letter-spacing="1">ACTIONS</text>
-  <!-- Card 3: API Costs -->
-  <rect x="360" y="8" width="155" height="62" rx="10" fill="url(#cardG3)" stroke="#00e676" stroke-width="0.8" stroke-opacity="0.5"/>
-  <text x="437" y="34" font-family="Orbitron,monospace" font-size="22" fill="#00e676" text-anchor="middle" font-weight="bold">$0</text>
-  <text x="437" y="54" font-family="monospace" font-size="9"  fill="#00e676" text-anchor="middle" opacity="0.8" letter-spacing="1">API COST</text>
-  <!-- Card 4: Personality -->
-  <rect x="535" y="8" width="155" height="62" rx="10" fill="url(#cardG4)" stroke="#ff6d00" stroke-width="0.8" stroke-opacity="0.5"/>
-  <text x="612" y="34" font-family="Orbitron,monospace" font-size="22" fill="#ff6d00" text-anchor="middle" font-weight="bold">100%</text>
-  <text x="612" y="54" font-family="monospace" font-size="9"  fill="#ff6d00" text-anchor="middle" opacity="0.8" letter-spacing="1">MCU WIT ✓</text>
-  <!-- Animated glint on card 1 -->
-  <rect x="10" y="8" width="40" height="62" rx="10" fill="white" opacity="0">
-    <animate attributeName="opacity" values="0;0.06;0" dur="4s" begin="0s" repeatCount="indefinite"/>
-    <animateTransform attributeName="transform" type="translate" from="0 0" to="115 0" dur="4s" begin="0s" repeatCount="indefinite"/>
-  </rect>
-</svg>
-</div>
+**3 AI Models &nbsp;•&nbsp; 10+ Actions &nbsp;•&nbsp; $0 API Cost &nbsp;•&nbsp; 100% MCU Wit ✓**
+
+
 
 > [!IMPORTANT]
 > **Always use Google Chrome for the best result.** The voice transcription engine (Web Speech API) is most stable and natively supported in Google Chrome. Other browsers (like Edge, Firefox, or Brave) may fail to capture voice input or raise network connection errors.
