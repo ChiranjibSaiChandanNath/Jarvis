@@ -309,6 +309,7 @@ Ensure you have the following installed on Windows:
 - **Node.js 18+** (Ensure "Add to PATH" is checked during installation; includes `npm`. If you don't have it, run `winget install OpenJS.NodeJS.LTS` in a new Command Prompt and restart your terminal)
 - **Google Chrome** (required for Web Speech API transcription)
 - **Groq API key** -- Powers the LLM brain for free ([Get one here](https://console.groq.com/))
+- **OpenWeatherMap API key** (Optional) -- Powers real-time weather details ([Get one here](https://openweathermap.org/api))
 
 
 ### 2. Setup Files & Dependencies
