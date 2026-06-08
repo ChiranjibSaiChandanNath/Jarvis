@@ -144,11 +144,10 @@
 ![SQLite](https://img.shields.io/badge/SQLite-Memory-ff6d00?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=0a0f1e)
 ![Status](https://img.shields.io/badge/Status-Active-00e676?style=for-the-badge&labelColor=0a0f1e)
 
-**🗣️ VOICE LOOP &nbsp;•&nbsp; 🧠 GROQ LLM &nbsp;•&nbsp; 🛠️ CLAUDE CODE**
 
 <br/>
 
-> **A Voice-First AI Assistant with Stark Wit, Local Speech Synthesis, and Groq Llama 3.3 Reasoning**
+> **A Voice-First AI Assistant with Local Speech Synthesis, and Groq Llama 3.3 Reasoning**
 
 <br/>
 
@@ -192,10 +191,6 @@
   </path>
 </svg>
 </div>
-
-**3 AI Models &nbsp;•&nbsp; 10+ Actions &nbsp;•&nbsp; $0 API Cost &nbsp;•&nbsp; 100% MCU Wit ✓**
-
-
 
 > [!IMPORTANT]
 > **Always use Google Chrome for the best result.** The voice transcription engine (Web Speech API) is most stable and natively supported in Google Chrome. Other browsers (like Edge, Firefox, or Brave) may fail to capture voice input or raise network connection errors.
