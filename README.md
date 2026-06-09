@@ -3,7 +3,7 @@
 <div align="center">
 
 <!-- Animated multi-line typing title -->
-<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=30&duration=2800&pause=900&color=4FC3F7&center=true&vCenter=true&multiline=false&width=720&lines=J.A.R.V.I.S.+%E2%80%94+Voice+Assistant;Local+Kokoro+TTS+%7C+Groq+Llama+3.3;Voice+Conversation+%7C+Web+Browsing+%7C+Code+Tasks;SQLite+Memory+%7C+macOS+Integrations;British+Butler+Elegance+%26+Stark+Wit" alt="J.A.R.V.I.S." />
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=30&duration=2800&pause=900&color=4FC3F7&center=true&vCenter=true&multiline=false&width=720&lines=J.A.R.V.I.S.+%E2%80%94+Voice+Assistant;Local+Kokoro+TTS+%7C+Groq+Llama+3.3" alt="J.A.R.V.I.S." />
 
 <br/>
 
