@@ -74,6 +74,10 @@ USER_NAME = os.getenv("USER_NAME", "sir")
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 _SKIP_PERMISSIONS = os.getenv("JARVIS_SKIP_PERMISSIONS", "true").lower() not in ("0", "false", "no")
 
+# Face authentication (optional — enabled via FACE_AUTH=true in .env)
+# True = verified, False = restricted mode, None = disabled/skipped
+FACE_RESTRICTED_MODE: bool = False  # set to True if face auth fails
+
 DESKTOP_PATH = Path.home() / "Desktop"
 
 JARVIS_SYSTEM_PROMPT = """\
@@ -3224,7 +3228,44 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=8340, help="Bind port")
     parser.add_argument("--reload", action="store_true", help="Auto-reload on changes")
     parser.add_argument("--ssl", action="store_true", help="Enable HTTPS with key.pem/cert.pem")
+    parser.add_argument("--skip-face-auth", action="store_true", help="Bypass face authentication for this session")
     args = parser.parse_args()
+
+    # -----------------------------------------------------------------------
+    # Face Authentication — runs BEFORE server starts
+    # -----------------------------------------------------------------------
+    if not args.skip_face_auth:
+        try:
+            from face_auth import verify_face, _FACE_AUTH_ENABLED, _model_exists
+            if _FACE_AUTH_ENABLED:
+                if not _model_exists():
+                    print()
+                    print("  ⚠️  FACE_AUTH=true but no face model trained yet.")
+                    print("     Run:  python face_auth.py --train")
+                    print("     Continuing without face auth for now...")
+                    print()
+                else:
+                    print()
+                    print("  🔐  Face authentication required. Please look at the camera...")
+                    auth_result = verify_face()
+                    if auth_result is True:
+                        print("  ✅  Identity confirmed. Welcome back, sir.")
+                        print()
+                    elif auth_result is False:
+                        print()
+                        print("  ⚠️  Face not recognized — entering RESTRICTED MODE.")
+                        print("     Sensitive commands (email, files, notes) are disabled.")
+                        print("     Run with  --skip-face-auth  if this is a false positive.")
+                        print()
+                        FACE_RESTRICTED_MODE = True
+                    else:
+                        print("  ℹ️  Face auth skipped (webcam unavailable or cancelled).")
+        except ImportError:
+            pass  # face_auth.py not present — silently skip
+
+    # -----------------------------------------------------------------------
+    # Server startup
+    # -----------------------------------------------------------------------
 
     # Auto-detect SSL certs
     cert_file = Path(__file__).parent / "cert.pem"
@@ -3236,6 +3277,8 @@ if __name__ == "__main__":
 
     print()
     print("  J.A.R.V.I.S. Server v0.1.0")
+    if FACE_RESTRICTED_MODE:
+        print("  ⚠️  Mode: RESTRICTED (face auth failed)")
     print(f"  WebSocket: {ws_proto}://{args.host}:{args.port}/ws/voice")
     print(f"  REST API:  {proto}://{args.host}:{args.port}/api/")
     print(f"  Tasks:     {proto}://{args.host}:{args.port}/api/tasks")
