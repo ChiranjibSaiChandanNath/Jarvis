@@ -19,8 +19,11 @@ if not exist ".env" (
 )
 
 :: Start backend in new window
-start "JARVIS Backend" python server.py
+start "JARVIS Backend" cmd /k "py server.py || pause"
 
-:: Start frontend in current window
-cd frontend
-npm run dev
+:: Start frontend in new window
+start "JARVIS Frontend" cmd /k "cd frontend && npm run dev"
+
+:: Open Chrome after a short delay to let Vite spin up
+timeout /t 3 /nobreak >nul
+start chrome "http://localhost:5173"

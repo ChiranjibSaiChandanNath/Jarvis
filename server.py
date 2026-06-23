@@ -2108,10 +2108,10 @@ async def handle_browser_control(command: str) -> str:
         return "Browser control ran into a problem, sir."
 
 
-async def handle_open_app(target: str) -> str:
+async def handle_open_app(target: str) -> dict:
+    """Returns the full open_app result dict (success, not_found, app_name, confirmation)."""
     from actions import open_app
-    result = await open_app(target)
-    return result["confirmation"]
+    return await open_app(target)
 
 
 async def handle_write_notepad(target: str) -> str:
@@ -2483,6 +2483,9 @@ async def voice_handler(ws: WebSocket):
     # Audio collision prevention — track when user last spoke
     voice_state = {"last_user_time": 0.0}
 
+    # Pending app-not-found follow-up: stores app name while waiting for user to pick Chrome or Store
+    pending_app_search: str | None = None
+
     # Self-awareness — track last spoken response to avoid repetition
     last_jarvis_response = ""
 
@@ -2587,6 +2590,44 @@ async def voice_handler(ws: WebSocket):
             try:
                 # ── CHECK FOR MODE SWITCHES ──
                 t_lower = user_text.lower()
+
+                # ── PENDING APP-NOT-FOUND: user chose Chrome or Microsoft Store ──
+                if pending_app_search:
+                    app_query = pending_app_search
+                    pending_app_search = None  # clear regardless of choice
+                    if any(w in t_lower for w in ("chrome", "google", "browser", "web")):
+                        import urllib.parse
+                        search_url = f"https://www.google.com/search?q=download+{urllib.parse.quote(app_query)}"
+                        asyncio.create_task(_execute_browse(search_url))
+                        response_text = f"Searching for {app_query} on Chrome, sir."
+                    elif any(w in t_lower for w in ("store", "microsoft", "windows store", "ms store")):
+                        import urllib.parse
+                        import subprocess as _sp
+                        store_url = f"ms-windows-store://search/?query={urllib.parse.quote(app_query)}"
+                        _sp.Popen(f'start "" "{store_url}"', shell=True)
+                        response_text = f"Opening the Microsoft Store to search for {app_query}, sir."
+                    else:
+                        # User said something else — fall through to normal LLM handling
+                        pending_app_search = None
+                        response_text = None
+
+                    if response_text:
+                        # Skip all other processing; TTS send happens at end of try block
+                        history.append({"role": "user", "content": user_text})
+                        history.append({"role": "assistant", "content": response_text})
+                        session_buffer.append({"role": "user", "content": user_text})
+                        session_buffer.append({"role": "assistant", "content": response_text})
+                        tts = strip_markdown_for_tts(response_text)
+                        await ws.send_json({"type": "status", "state": "speaking"})
+                        audio = await synthesize_speech(tts)
+                        if audio:
+                            await ws.send_json({"type": "audio", "data": base64.b64encode(audio).decode(), "text": response_text})
+                        else:
+                            await ws.send_json({"type": "text", "text": response_text})
+                            await ws.send_json({"type": "status", "state": "idle"})
+                        log.info(f"JARVIS: {response_text}")
+                        last_jarvis_response = response_text
+                        continue
 
                 # ── PLANNING MODE: answering clarifying questions ──
                 if planner.is_planning:
@@ -2725,7 +2766,10 @@ async def voice_handler(ws: WebSocket):
                             else:
                                 response_text = f"Pulling that up now, sir."
                         elif action["action"] == "open_app":
-                            response_text = await handle_open_app(action["target"])
+                            _app_result = await handle_open_app(action["target"])
+                            response_text = _app_result["confirmation"]
+                            if _app_result.get("not_found"):
+                                pending_app_search = _app_result["app_name"]
                         elif action["action"] == "write_notepad":
                             response_text = await handle_write_notepad(action["target"])
                         elif action["action"] == "show_recent":
@@ -2847,7 +2891,11 @@ async def voice_handler(ws: WebSocket):
                                 elif embedded_action["action"] == "open_terminal":
                                     asyncio.create_task(_execute_open_terminal())
                                 elif embedded_action["action"] == "open_app":
-                                    asyncio.create_task(_execute_open_app(embedded_action["target"]))
+                                    _emb_result = await handle_open_app(embedded_action["target"])
+                                    if _emb_result.get("not_found"):
+                                        pending_app_search = _emb_result["app_name"]
+                                        # Override response to include the follow-up question
+                                        response_text = _emb_result["confirmation"]
                                 elif embedded_action["action"] == "write_notepad":
                                     asyncio.create_task(_execute_write_notepad(embedded_action["target"]))
                                 elif embedded_action["action"] == "prompt_project":
