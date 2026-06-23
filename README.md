@@ -262,31 +262,42 @@ This downloads `kokoro-v1.0.onnx` and the `voices-v1.0.bin` files to your projec
 
 ## Running JARVIS
 
-### ⚡ Option A — One Command (Recommended)
+There are two ways to start JARVIS — pick whichever suits you.
 
-Double-click **`start.bat`** or run in CMD from the `Jarvis` folder:
+---
+
+### ⚡ Option A — Automatic (Recommended)
+
+Double-click **`start.bat`** from the `Jarvis` folder, or run it from CMD:
 ```cmd
 start.bat
 ```
 
-> **First time only:** If no `.env` file exists, `start.bat` automatically copies `.env.example` to `.env` and opens Notepad so you can fill in your API keys. Save the file and JARVIS will start.
+> **First time only:** If no `.env` file exists, `start.bat` automatically copies `.env.example` to `.env` and opens Notepad so you can fill in your API keys. Save the file and press any key to continue.
 >
 > **Every time after that:** JARVIS starts directly — no prompts, no delays.
 
-This opens:
-- 🟢 A new window running `python server.py` (backend)
-- 🔵 The current window running `npm run dev` (frontend)
+`start.bat` does everything automatically:
+
+| Step | What happens |
+|------|-------------|
+| 1 | Opens **JARVIS Backend** window → runs `py server.py` |
+| 2 | Opens **JARVIS Frontend** window → runs `cd frontend && npm run dev` |
+| 3 | Waits 3 seconds for Vite to spin up |
+| 4 | Opens **Google Chrome** at `http://localhost:5173` automatically |
 
 ---
 
-### 🖥️ Option B — Two Separate Terminals
+### 🖥️ Option B — Manual (Two Terminals)
+
+If you prefer to run each part yourself:
 
 **Terminal 1 — Backend:**
 ```cmd
-python server.py
+py server.py
 ```
 *Expected output:*
-```text
+```
 [jarvis] Initializing Kokoro TTS model...
 [jarvis] Kokoro TTS initialized successfully.
 Uvicorn running on http://0.0.0.0:8340
@@ -297,8 +308,18 @@ Uvicorn running on http://0.0.0.0:8340
 cd frontend
 npm run dev
 ```
+*Expected output:*
+```
+  VITE v5.x.x  ready in xxx ms
+  ➜  Local:   http://localhost:5173/
+```
 
-> **Note:** If using Option B for the first time, manually copy `.env.example` to `.env` and fill in your keys:
+**Then open Chrome manually:**
+```
+http://localhost:5173
+```
+
+> **Note:** If running Option B for the first time, manually copy `.env.example` to `.env` and fill in your keys:
 > ```cmd
 > copy .env.example .env
 > notepad .env
